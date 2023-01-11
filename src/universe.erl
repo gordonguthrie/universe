@@ -37,11 +37,15 @@
 start(_StartType, _StartArgs) ->
     ok = ssl:start(),
     Port = 1965,
-    CertFile = "./priv/keys/server.crt",
-    KeyFile  = "./priv/keys/server.key",
-    Cert = #{certfile => CertFile,
-             keyfile  => KeyFile},
-    Certs = [{"localhost", Cert}],
+    CertFile1 = "./priv/sites/localhost/keys/server.crt",
+    KeyFile1  = "./priv/sites/localhost/keys/server.key",
+    CertFile2 = "./priv/sites/chess.local/keys/server.crt",
+    KeyFile2  = "./priv/sites/chess.local/keys/server.key",
+    Cert1 = #{certfile => CertFile1,
+              keyfile  => KeyFile1},
+    Cert2 = #{certfile => CertFile2,
+              keyfile  => KeyFile2},
+    Certs = [{"localhost", Cert1}, {"chess.local", Cert2}],
     _PID = belka:start(Port, Certs, {belka_router, dispatch}),
     universe_sup:start_link().
 
