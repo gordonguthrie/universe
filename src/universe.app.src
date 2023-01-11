@@ -13,7 +13,8 @@
   {mod, {universe, []}},
   {applications,
    [kernel,
-    stdlib
+    stdlib,
+    sevastyanov
    ]},
   {env,[]},
   {modules, []},

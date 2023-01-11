@@ -13,8 +13,6 @@
 
 -export([start/2, stop/1]).
 
--export([dummy_router/1]).
-
 % The `start` function starts the secure socket layer (`ssl`) which Gemini needs
 
 % We define the port using the default `gemini://` port number og `1965`
@@ -36,10 +34,6 @@
 
 % All applications start a top level supervisor and we do so here. When you read the source code you will see that that supervisor is not starting any children in this example.
 
-dummy_router(Route) ->
-    io:format("in ~p~n", [Route]),
-    ok.
-
 start(_StartType, _StartArgs) ->
     ok = ssl:start(),
     Port = 1965,
@@ -48,7 +42,7 @@ start(_StartType, _StartArgs) ->
     Cert = #{certfile => CertFile,
              keyfile  => KeyFile},
     Certs = [{"localhost", Cert}],
-    _PID = belka:start(Port, Certs, {belka_example_callbacks, simpleRouter}),
+    _PID = belka:start(Port, Certs, {belka_router, dispatch}),
     universe_sup:start_link().
 
 stop(_State) ->
