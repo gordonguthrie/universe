@@ -18,3 +18,5 @@ _checkouts/
 
 rebar.lock
 priv/
+
+.DS_Store
